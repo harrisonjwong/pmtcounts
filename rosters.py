@@ -1,4 +1,5 @@
 import mwclient
+import re
 site = mwclient.Site('lol.gamepedia.com', path='/')
 
 teams = site.api('cargoquery',
@@ -12,10 +13,10 @@ teams = site.api('cargoquery',
 
 def processRole(roleString, players, currentIndex):
     if roleString == "":
-        roleString += players[currentIndex]
+        roleString += re.sub(r" ?\([^)]+\)", "", players[currentIndex])
     else:
         roleString += " / "
-        roleString += players[currentIndex]
+        roleString += re.sub(r" ?\([^)]+\)", "", players[currentIndex])
     return roleString
 
 
@@ -34,16 +35,22 @@ for team in teams.get("cargoquery"):
     sup = ""
 
     for i in range(len(rolesArr)):
-        if rolesArr[i] == "Top Laner":
+        if rolesArr[i] == "Top":
             top = processRole(top, playersArr, i)
-        elif rolesArr[i] == "Jungler":
+        elif rolesArr[i] == "Jungle":
             jng = processRole(jng, playersArr, i)
-        elif rolesArr[i] == "Mid Laner":
+        elif rolesArr[i] == "Mid":
             mid = processRole(mid, playersArr, i)
-        elif rolesArr[i] == "Bot Laner":
+        elif rolesArr[i] == "Bot":
             bot = processRole(bot, playersArr, i)
         elif rolesArr[i] == "Support":
             sup = processRole(sup, playersArr, i)
 
-    print teamName, ",", top, ",", jng, ",", mid, ",", bot, ",", sup
+    print("{teamName}, {top}, {jng}, {mid}, {bot}, {sup}".format(
+        teamName = teamName,
+        top = top,
+        jng = jng,
+        mid = mid,
+        bot = bot,
+        sup = sup))
 
