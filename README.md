@@ -18,7 +18,7 @@ https://lol.gamepedia.com/Special:CargoTables/TournamentRosters
 
 https://lol.gamepedia.com/Special:CargoTables/Teams
 
-[image](./img/rosters.png)
+![image](./img/rosters.png)
 
 ---
 
@@ -30,4 +30,4 @@ Gets reddit links from Leaguepedia
 
 Gets username from reddit link
 
-[image](./img/threads.png)
+![image](./img/threads.png)
