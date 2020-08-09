@@ -18,6 +18,8 @@ https://lol.gamepedia.com/Special:CargoTables/TournamentRosters
 
 https://lol.gamepedia.com/Special:CargoTables/Teams
 
+[image](./img/rosters.png)
+
 ---
 
 #### seasoncounts.py
@@ -28,6 +30,4 @@ Gets reddit links from Leaguepedia
 
 Gets username from reddit link
 
----
-
-Written using python 2.7 but can probably use a later version
+[image](./img/threads.png)
