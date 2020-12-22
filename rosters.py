@@ -6,8 +6,8 @@ teams = site.api('cargoquery',
     limit = "max",
     tables = "Teams=T,TournamentRosters=TR",
     fields = "T.Name, TR.RosterLinks, TR.Roles",
-    join_on = "T.Name=TR.Team",
-    where = 'TR.Tournament="LCS 2020 Summer"'
+    join_on = "T.OverviewPage=TR.Team",
+    where = 'TR.Tournament="LCS 2021 Spring"'
 )
 
 
