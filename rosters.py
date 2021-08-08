@@ -1,13 +1,13 @@
 import mwclient
 import re
-site = mwclient.Site('lol.gamepedia.com', path='/')
+site = mwclient.Site('lol.fandom.com', path='/')
 
 teams = site.api('cargoquery',
     limit = "max",
     tables = "Teams=T,TournamentRosters=TR",
     fields = "T.Name, TR.RosterLinks, TR.Roles",
-    join_on = "T.OverviewPage=TR.Team",
-    where = 'TR.Tournament="LCS 2021 Spring"'
+    join_on = "T.Name=TR.Team",
+    where = 'TR.Tournament="MSI 2021"'
 )
 
 
@@ -53,4 +53,3 @@ for team in teams.get("cargoquery"):
         mid = mid,
         bot = bot,
         sup = sup))
-
