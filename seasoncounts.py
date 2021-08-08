@@ -2,13 +2,13 @@ from datetime import datetime
 import requests
 import mwclient
 import json
-site = mwclient.Site('lol.gamepedia.com', path='/')
+site = mwclient.Site('lol.fandom.com', path='/')
 
 matches = site.api('cargoquery',
     limit = "max",
     tables = "MatchSchedule=M",
     fields = "M.OverviewPage, M.Team1, M.Team2, M.DateTime_UTC, M.Reddit",
-    where = 'M.OverviewPage="LEC/2020 Season/Summer Season"'
+    where = 'M.OverviewPage="LPL/2021 Season/Summer Season"'
 )
 
 class MyMatch:
@@ -45,11 +45,19 @@ def getUsernameFromRedditPost(link):
     else:
         return "unsure"
 
+angels = {}
+
 for match in cleanMatches:
     if "redd.it" in match.reddit:
         # reddit.com/comments/last-6-characters/.json
         redditCode = match.reddit[-6:]
         link = "https://reddit.com/comments/{code}/.json".format(code = redditCode)
+        match.angel = getUsernameFromRedditPost(link)
+    elif "utm_source" in match.reddit:
+        linkSplitBySlash = match.reddit.split("/")
+        # 6th in split by slash is the reddit ID
+        redditCode = linkSplitBySlash[6]
+        link = "https://reddit.com/comments/{code}/.json".format(code=redditCode)
         match.angel = getUsernameFromRedditPost(link)
     elif "reddit.com" in match.reddit:
         link = "{link}.json".format(link = match.reddit)
@@ -57,3 +65,14 @@ for match in cleanMatches:
     else:
         match.angel = "thread_missing"
     print(match)
+
+    if match.angel in angels:
+        angels[match.angel] = angels[match.angel] + 1
+    else:
+        angels[match.angel] = 1
+
+# print(angels)
+
+for angel, count in angels.items():
+    print("%s, %s" % (angel, count))
+
