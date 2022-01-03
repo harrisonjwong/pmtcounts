@@ -31,3 +31,18 @@ Gets reddit links from Leaguepedia
 Gets username from reddit link
 
 ![image](./img/threads.png)
+
+----
+
+#### schedule.py
+
+Generates spreadsheet-friendly schedules by season and week
+
+Set playoffs by removing Tab='Week 1' in the `where` query - because playoffs schedule is done by all matches
+
+Uses MatchSchedule table - https://lol.fandom.com/wiki/Special:CargoTables/MatchSchedule
+
+Format is `Date "tab" Eastern "tab" Pacific "tab" CET "tab" Team1 "tab" vs. "tab" Team2`
+
+Uses pytz for timezones
+

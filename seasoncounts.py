@@ -8,7 +8,7 @@ matches = site.api('cargoquery',
     limit = "max",
     tables = "MatchSchedule=M",
     fields = "M.OverviewPage, M.Team1, M.Team2, M.DateTime_UTC, M.Reddit",
-    where = 'M.OverviewPage="LPL/2021 Season/Summer Season"'
+    where = 'M.OverviewPage="European Masters/2021 Season/Summer Main Event"'
 )
 
 class MyMatch:
