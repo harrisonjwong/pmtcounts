@@ -46,3 +46,4 @@ Format is `Date "tab" Eastern "tab" Pacific "tab" CET "tab" Team1 "tab" vs. "tab
 
 Uses pytz for timezones
 
+![image](./img/schedules.png)
