@@ -4,10 +4,10 @@ site = mwclient.Site('lol.fandom.com', path='/')
 
 teams = site.api('cargoquery',
     limit = "max",
-    tables = "Teams=T,TournamentRosters=TR",
-    fields = "T.Name, TR.RosterLinks, TR.Roles",
-    join_on = "T.Name=TR.Team",
-    where = 'TR.Tournament="MSI 2021"'
+    tables = "TournamentRosters=TR",
+    fields = "TR.Team, TR.RosterLinks, TR.Roles",
+    # join_on = "T.Name=TR.Team",
+    where = 'TR.Tournament="LPL 2022 Spring"'
 )
 
 
@@ -21,7 +21,7 @@ def processRole(roleString, players, currentIndex):
 
 
 for team in teams.get("cargoquery"):
-    teamName = team.get("title").get("Name")
+    teamName = team.get("title").get("Team")
     roles = team.get("title").get("Roles")
     players = team.get("title").get("RosterLinks")
 
