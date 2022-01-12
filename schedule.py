@@ -2,9 +2,7 @@ from datetime import datetime
 import mwclient
 import pytz
 
-## CONSTANTS
-
-league = 'LCK'
+league = 'LPL'
 season = '2022 Season'
 split = 'Spring Season'
 week = 'Week 2'
@@ -20,10 +18,22 @@ matches = site.api('cargoquery',
                    )
 
 # print(pytz.all_timezones_set)
+
+
 utc = pytz.timezone('UTC')
 eastern_us = pytz.timezone('America/New_York')
 pacific_us = pytz.timezone('America/Los_Angeles')
 central_eu = pytz.timezone('Europe/Berlin')
+
+
+def clean_team_name(name: str):
+    if name == 'Rogue (European Team)':
+        return 'Rogue'
+    elif name == 'Evil Geniuses.NA':
+        return 'Evil Geniuses'
+    else:
+        return name
+
 
 class MyMatch:
     def __init__(self, cal, team1, team2, tab):
@@ -37,13 +47,13 @@ class MyMatch:
         self.tab = tab
 
     def __str__(self):
-        return "{date}\t{eastern}\t{pacific}\t{european}\t{team1}\tvs.\t{team2}".format(
-            date=self.cal.strftime('%a %Y-%m-%d'),
+        return "{eastern_date}\t{eastern}\t{pacific}\t{european}\t{team1}\tvs.\t{team2}".format(
+            eastern_date=self.eastern.strftime('%a %Y-%m-%d'),
             eastern=self.eastern.strftime('%H:%M'),
             pacific=self.pacific.strftime('%H:%M'),
             european=self.european.strftime('%H:%M'),
-            team1=self.team1,
-            team2=self.team2,
+            team1=clean_team_name(self.team1),
+            team2=clean_team_name(self.team2),
             tab=self.tab,
         )
 
